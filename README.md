@@ -17,6 +17,8 @@ application designed to demonstrate:
 All machine and sensor data is synthetic.
 No proprietary company information is used.
 
+This is an updated version of MeiWatch with better UI and containerization so it can be deployed across various systems. 
+
 ## Technology Stack
 
 - Python
