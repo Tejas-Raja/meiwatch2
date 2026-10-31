@@ -1,0 +1,27 @@
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meiwatch2"
+version = "0.1.0"
+description = "Factory Operations Monitoring System"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pandas",
+    "sqlalchemy",
+    "psycopg[binary]",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "httpx",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
