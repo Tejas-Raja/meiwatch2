@@ -5,7 +5,7 @@ from meiwatch.sensor_generator import generate_readings
 def main():
     readings = generate_readings(
         seed=42,
-        anomaly_probability=1,
+        anomaly_probability=0.10,
       )
 
     print(f"Total readings generated: {len(readings)}")
