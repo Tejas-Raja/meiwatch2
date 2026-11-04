@@ -31,7 +31,7 @@ def get_sensor_statistics(session: Session) -> list[dict]:
             s.sensor_name,
             s.unit,
             COUNT(r.id) AS reading_count,
-            ROUND(AVG(r.value), 2) AS average_value,
+            CAST(ROUND(AVG(r.value) * 100) / 100.0 AS FLOAT) AS average_value,
             MIN(r.value) AS minimum_value,
             MAX(r.value) AS maximum_value
 

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from meiwatch.routers import equipment, readings, alerts, analytics
 
 app = FastAPI(
     title="MeiWatch2.0",
@@ -6,6 +7,10 @@ app = FastAPI(
     version="1.0.0",
 )
 
+app.include_router(equipment.router)
+app.include_router(readings.router)
+app.include_router(alerts.router)
+app.include_router(analytics.router)
 
 @app.get("/")
 def root():

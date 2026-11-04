@@ -33,3 +33,11 @@ SessionLocal = sessionmaker(
 # Base class for all ORM models
 class Base(DeclarativeBase):
     pass
+
+def get_db():
+    db = SessionLocal()
+
+    try:
+        yield db
+    finally:
+        db.close()
