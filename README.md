@@ -100,7 +100,7 @@ meiwatch2/
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Tejas-Raja/meiwatch2
 cd meiwatch2
 ```
 
