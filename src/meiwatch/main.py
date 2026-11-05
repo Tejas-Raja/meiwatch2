@@ -1,4 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import Session
+
+from meiwatch.database import get_db
 from meiwatch.routers import equipment, readings, alerts, analytics
 
 app = FastAPI(
@@ -21,5 +26,18 @@ def root():
 
 
 @app.get("/health")
-def health_check():
-    return {"status": "healthy"}
+def health_check(db: Session = Depends(get_db)):
+    try:
+        db.execute(text("SELECT 1"))
+        return {
+            "status": "healthy",
+            "database": "connected"
+        }
+    except SQLAlchemyError:
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "status": "unhealthy",
+                "database": "disconnected"
+            }
+        )
