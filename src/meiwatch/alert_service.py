@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from sqlalchemy.orm import Session
 
 from meiwatch.models import (
@@ -52,7 +52,12 @@ def generate_alerts(session: Session) -> int:
             AlertModel,
             AlertModel.reading_id == SensorReadingModel.id,
         )
-        .where(AlertModel.id.is_(None))
+        .where(AlertModel.id.is_(None),
+            or_(
+                SensorReadingModel.value < SensorDefinitionModel.normal_min,
+                SensorReadingModel.value > SensorDefinitionModel.normal_max,
+            ),
+        )
     )
 
     new_alerts = []

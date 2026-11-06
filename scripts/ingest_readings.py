@@ -7,7 +7,7 @@ from meiwatch.sensor_generator import generate_readings
 def main():
     # 1. Generate synthetic sensor readings.
     raw_readings = generate_readings(
-        seed=42,
+        seed=None,
         anomaly_probability=0.10,
     )
 

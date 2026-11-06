@@ -53,5 +53,22 @@ services:
       timeout: 5s
       retries: 5
 
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: meiwatch2-worker
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      INGESTION_INTERVAL_SECONDS: ${INGESTION_INTERVAL_SECONDS:-10}
+      ANOMALY_PROBABILITY: ${ANOMALY_PROBABILITY:-0.05}
+    depends_on:
+      app:
+        condition: service_healthy
+    command: ["python", "-m", "meiwatch.worker"]
+    restart: unless-stopped
+
 volumes:
   postgres_data:
